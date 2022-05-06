@@ -12,10 +12,18 @@ dotenv.config()
 let db = null
 const mongoClient = new MongoClient(process.env.MONGO_URI)
 const promise = mongoClient.connect()
-promise.then(() => db = mongoClient.db('test'))
+promise.then(() => db = mongoClient.db('my-wallet'))
 
-app.get('/', (req, res) => {
-    res.send('Server Test')
+app.post('/users', async (req, res) => {
+    try {
+        const user = req.body
+        await db.collection('users').insertOne(user)
+        //console.log(await db.collection('users').find({}).toArray())
+        res.sendStatus(201)
+    } catch {
+        console.log('Erro ao cadastrar usuário')
+        res.sendStatus(500)
+    }
 })
 
 app.listen(5000, () => console.log('Server is running on: http://localhost:5000'))
