@@ -4,6 +4,7 @@ import { MongoClient } from 'mongodb'
 import dotenv from 'dotenv'
 import joi from 'joi'
 import bcrypt from 'bcrypt'
+import { v4 as uuid } from 'uuid';
 
 const app = express()
 app.use(cors())
@@ -41,7 +42,12 @@ app.post('/login', async (req, res) => {
         if (!bcrypt.compareSync(password, user.password)) {
             return res.sendStatus(401)
         }
-        res.send(user).status(200)
+        const token = uuid();
+        await db.collection('sessions').insertOne({
+            userId: user._id,
+            token
+        })
+        res.send({ ...user, token }).status(200)
     } catch {
         console.log('Erro ao fazer login')
         res.sendStatus(500)
