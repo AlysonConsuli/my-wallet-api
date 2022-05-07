@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 import { postLogin, postUsers } from '../controllers/authController.js';
-import { userMidlleware } from '../middlewares/userMidlleware.js';
-import { loginMidlleware } from '../middlewares/loginMidlleware.js';
+import { userMiddleware } from '../middlewares/userMiddleware.js';
+import { loginMiddleware } from '../middlewares/loginMiddleware.js';
 
 const authRouter = Router()
 
-authRouter.post('/users', userMidlleware, postUsers)
-authRouter.post('/login', loginMidlleware , postLogin)
+authRouter.post('/users', userMiddleware, postUsers)
+authRouter.post('/login', loginMiddleware, postLogin)
 export default authRouter

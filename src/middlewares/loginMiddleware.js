@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import { loginSchema } from "../schemas/loginSchema.js"
 import db from "../db.js"
 
-export const loginMidlleware = async (req, res, next) => {
+export const loginMiddleware = async (req, res, next) => {
     const validation = loginSchema.validate(req.body, { abortEarly: false })
     if (validation.error) {
         console.log(validation.error.details.map(detail => detail.message))
