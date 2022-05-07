@@ -1,18 +1,8 @@
 import db from '../db.js'
 
 export const getItems = async (req, res) => {
-    const { authorization } = req.headers;
-    const token = authorization?.replace("Bearer ", "").trim();
-    if (!token) {
-        return res.sendStatus(401);
-    }
-    const session = await db.collection('sessions').findOne({ token });
-    if (!session) {
-        return res.sendStatus(401);
-    }
-
     try {
-        const user = await db.collection("users").findOne({ _id: session.userId });
+        const { user } = res.locals
         res.status(201).send(user.items);
 
     } catch {
@@ -22,21 +12,10 @@ export const getItems = async (req, res) => {
 }
 
 export const postItems = async (req, res) => {
-    const { authorization } = req.headers;
-    const token = authorization?.replace("Bearer ", "").trim();
-    if (!token) {
-        return res.sendStatus(401);
-    }
-    const session = await db.collection('sessions').findOne({ token });
-    if (!session) {
-        return res.sendStatus(401);
-    }
     try {
         const { value, description, type, date } = req.body
-        const user = await db.collection("users").findOne({ _id: session.userId });
-        await db.collection("users").updateOne({
-            _id: session.userId
-        }, {
+        const { user } = res.locals
+        await db.collection("users").updateOne(user, {
             $push: {
                 items: {
                     value: Number(value),
