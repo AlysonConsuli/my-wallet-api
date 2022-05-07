@@ -1,7 +1,8 @@
-import db from "../db.js"
 import { userSchema } from "../schemas/userSchema.js"
 
-export const userSchemaMidlleware = async (req, res, next) => {
+import db from "../db.js"
+
+export const userMidlleware = async (req, res, next) => {
     const validation = userSchema.validate(req.body, { abortEarly: false })
     if (validation.error) {
         console.log(validation.error.details.map(detail => detail.message))

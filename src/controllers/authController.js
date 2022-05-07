@@ -22,15 +22,8 @@ export const postUsers = async (req, res) => {
 
 export const postLogin = async (req, res) => {
     try {
-        const { email, password } = req.body
-        const user = await db.collection('users').findOne({ email })
-        if (!user) {
-            return res.sendStatus(404)
-        }
-        if (!bcrypt.compareSync(password, user.password)) {
-            return res.sendStatus(401)
-        }
         const token = uuid();
+        const { user } = res.locals
         await db.collection('sessions').insertOne({
             userId: user._id,
             token
