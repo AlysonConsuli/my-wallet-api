@@ -45,3 +45,14 @@ export const postAutoLogin = async (req, res) => {
         res.sendStatus(500)
     }
 }
+
+export const deleteSession = async (req, res) => {
+    try {
+        const { session } = res.locals
+        await db.collection('sessions').deleteOne(session)
+        res.sendStatus(200);
+    } catch {
+        console.log('Erro ao fazer log-out')
+        res.sendStatus(500)
+    }
+}
