@@ -34,3 +34,14 @@ export const postLogin = async (req, res) => {
         res.sendStatus(500)
     }
 }
+
+export const postAutoLogin = async (req, res) => {
+    try {
+        const { user } = res.locals
+        res.status(200).send(user.name);
+
+    } catch {
+        console.log('Erro ao fazer auto-login')
+        res.sendStatus(500)
+    }
+}

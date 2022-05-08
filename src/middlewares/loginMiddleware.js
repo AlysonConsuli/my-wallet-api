@@ -18,6 +18,8 @@ export const loginMiddleware = async (req, res, next) => {
         if (!bcrypt.compareSync(password, user.password)) {
             return res.sendStatus(401)
         }
+        delete user.email;
+        delete user.password;
         res.locals.user = user
         next()
     } catch {
