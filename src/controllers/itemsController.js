@@ -50,3 +50,24 @@ export const deleteItem = async (req, res) => {
         res.sendStatus(500)
     }
 }
+
+export const uptadeItem = async (req, res) => {
+    try {
+        const { value, description } = req.body
+        const { user } = res.locals
+        const { itemId } = req.params
+        await db.collection("users").updateOne(user,
+            {
+                $set: {
+                    "items.$[item].value": Number(value),
+                    "items.$[item].description": description
+                }
+            },
+            { arrayFilters: [{ "item.id": Number(itemId) }] }
+        )
+        res.sendStatus(200)
+    } catch {
+        console.log('Erro ao editar item')
+        res.sendStatus(500)
+    }
+}
