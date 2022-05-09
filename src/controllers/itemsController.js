@@ -6,7 +6,6 @@ export const getItems = async (req, res) => {
         res.status(201).send(user.items);
 
     } catch {
-        console.log('Erro ao pegar os itens')
         res.sendStatus(500)
     }
 }
@@ -29,7 +28,6 @@ export const postItems = async (req, res) => {
         })
         res.sendStatus(201)
     } catch {
-        console.log('Erro ao postar o item')
         res.sendStatus(500)
     }
 }
@@ -46,7 +44,6 @@ export const deleteItem = async (req, res) => {
         })
         res.sendStatus(200)
     } catch {
-        console.log('Erro ao apagar item')
         res.sendStatus(500)
     }
 }
@@ -67,7 +64,6 @@ export const uptadeItem = async (req, res) => {
         )
         res.sendStatus(200)
     } catch {
-        console.log('Erro ao editar item')
         res.sendStatus(500)
     }
 }

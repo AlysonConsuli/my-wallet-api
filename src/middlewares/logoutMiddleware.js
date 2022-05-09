@@ -17,6 +17,6 @@ export const logoutMiddleware = async (req, res, next) => {
         next()
     }
     catch {
-        return res.sendStatus(500);
+        res.sendStatus(500);
     }
 }

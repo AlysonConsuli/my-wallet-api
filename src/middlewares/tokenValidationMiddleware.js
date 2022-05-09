@@ -22,7 +22,6 @@ export const tokenValidation = async (req, res, next) => {
         next()
     }
     catch (e) {
-        console.log('Erro na validação do token')
-        return res.sendStatus(500);
+        res.sendStatus(500);
     }
 }

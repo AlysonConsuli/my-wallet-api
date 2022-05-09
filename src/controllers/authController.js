@@ -15,7 +15,6 @@ export const postUsers = async (req, res) => {
         })
         res.sendStatus(201)
     } catch {
-        console.log('Erro ao cadastrar usuário')
         res.sendStatus(500)
     }
 }
@@ -30,7 +29,6 @@ export const postLogin = async (req, res) => {
         })
         res.send({ ...user, token }).status(200)
     } catch {
-        console.log('Erro ao fazer login')
         res.sendStatus(500)
     }
 }
@@ -41,7 +39,6 @@ export const postAutoLogin = async (req, res) => {
         res.status(200).send(user.name);
 
     } catch {
-        console.log('Erro ao fazer auto-login')
         res.sendStatus(500)
     }
 }
@@ -52,7 +49,6 @@ export const deleteSession = async (req, res) => {
         await db.collection('sessions').deleteOne(session)
         res.sendStatus(200);
     } catch {
-        console.log('Erro ao fazer log-out')
         res.sendStatus(500)
     }
 }
